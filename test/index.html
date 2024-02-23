@@ -1,14 +1,180 @@
-<html> 
+<!DOCTYPE html>
+<html lang="en">
 <head>
-	<title>Test Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&amp;display=swap">
+  <style>
+    body {
+      font-family: 'Fredoka', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: url('https://raw.githubusercontent.com/dortik98/website/main/images/gg.jpg') center/cover fixed;
+      color: white;
+    }
 
-        <meta http-equiv="Refresh" content="0; url='https://jarouskov.cz'" />
-	
-	<meta name="description" content="Redirect na Jardíka!">
+    #title {
+      font-size: 115px;
+      margin-bottom: 20px;
+    }
 
-	<meta name="keywords" content="">
+    #countdown {
+      text-align: center;
+      font-size: 100px;
+      cursor: pointer; /* Make the countdown clickable */
+    }
+
+    #milliseconds {
+      font-size: 33px;
+    }
+
+    #button {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      opacity: 0.6;
+      cursor: pointer;
+    }
+
+    #button img {
+      width: 60px;
+    }
+
+    #discordButton {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      opacity: 0.7;
+      cursor: pointer;
+    }
+
+    #discordButton img {
+      width: 40px; /* Adjust the width as per your preference */
+    }
+
+    .confetti-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 9999;
+      display: none; /* Initially hide confetti */
+    }
+
+    .confetti {
+      width: 10px;
+      height: 10px;
+      background-color: transparent;
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      transform-origin: 50% 50%;
+      will-change: transform;
+      animation: confetti-fall linear infinite;
+    }
+
+    @keyframes confetti-fall {
+      to {
+        transform: translateY(100vh);
+      }
+    }
+  </style>
+  <title>Countdown</title>
+  <script>
+    // JavaScript to detect if the user is on a mobile device
+    function isMobileDevice() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
+    // Redirect to another site if the user is on a mobile device
+    if (isMobileDevice()) {
+      window.location.href = "https://fytg.fun/mobileupdate";
+    }
+  </script>
 </head>
-  <body>
-    <p>Redirecting</p>
-  </body>
+<body>
+
+<div id="title">Next PS99 Update!</div>
+<div id="countdown"></div>
+<div id="milliseconds"></div>
+
+<a id="button" href="https://fytg.fun/" target="_blank">
+  <img src="https://raw.githubusercontent.com/dortik98/website/main/images/signature-white.png" alt="Signature">
+</a>
+
+<a id="discordButton" href="https://raw.githubusercontent.com/dortik98/website/main/images/discordupd.png" target="_blank">
+  <img src="https://raw.githubusercontent.com/dortik98/website/main/images/discordupd.png" alt="Discord">
+</a>
+
+<div class="confetti-container">
+  <!-- Confetti elements will be dynamically added here -->
+</div>
+
+<script>
+  const countDownDate = new Date("February 24, 2024 18:00:00 GMT+0100").getTime();
+  let confettiInitialized = false;
+
+  const x = setInterval(function() {
+    const now = new Date().getTime();
+
+    const distance = countDownDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    const milliseconds = Math.floor(distance % 1000);
+
+    document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    document.getElementById("milliseconds").innerHTML = `${milliseconds}ms`;
+
+    if (distance < 0 && !confettiInitialized) {
+      clearInterval(x);
+      const countdownElement = document.getElementById("countdown");
+      countdownElement.innerHTML = "Update Out!";
+      countdownElement.style.color = "#8eff8e"; // Light green color
+      countdownElement.style.cursor = "pointer"; // Make it clickable
+      countdownElement.addEventListener("click", function() {
+        window.location.href = "https://www.roblox.com/games/8737899170/";
+      });
+      document.getElementById("milliseconds").style.display = "none"; // Hide milliseconds
+      document.querySelector('.confetti-container').style.display = 'block'; // Show confetti
+      initializeConfetti(); // Initialize confetti only once
+      confettiInitialized = true;
+    }
+  }, 1); // Update every 1 millisecond
+
+  function initializeConfetti() {
+    const colors = ['#9142ff', '#2aff54', '#ffde37', '#ff3737', '#4385ff'];
+    const confettiContainer = document.querySelector('.confetti-container');
+
+    function createConfetti(animationDelay) {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+      confetti.style.animationDelay = animationDelay ? 0 : Math.random() * 2 + 's';
+      confettiContainer.appendChild(confetti);
+
+      confetti.addEventListener('animationiteration', () => {
+        confetti.remove();
+      });
+    }
+
+    for (let i = 0; i < 100; i++) {
+      createConfetti(0);
+    }
+    setInterval(createConfetti, 20);
+  }
+</script>
+
+</body>
 </html>
