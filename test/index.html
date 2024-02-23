@@ -17,43 +17,33 @@
       color: white;
     }
 
-    #title {
-      font-size: 115px;
-      margin-bottom: 20px;
-    }
-
-    #countdown {
+    #title, #countdown, #milliseconds {
+      font-size: 8vw; /* Adjust according to your preference */
       text-align: center;
-      font-size: 100px;
-      cursor: pointer; /* Make the countdown clickable */
     }
 
-    #milliseconds {
-      font-size: 33px;
-    }
-
-    #button {
+    #button, #discordButton {
       position: fixed;
-      top: 20px;
-      right: 20px;
-      opacity: 0.6;
-      cursor: pointer;
-    }
-
-    #button img {
-      width: 60px;
-    }
-
-    #discordButton {
-      position: fixed;
-      top: 20px;
-      left: 20px;
       opacity: 0.7;
       cursor: pointer;
     }
 
+    #button {
+      top: 10px;
+      right: 10px;
+    }
+
+    #discordButton {
+      top: 10px;
+      left: 10px;
+    }
+
+    #button img {
+      width: 20vw;
+    }
+
     #discordButton img {
-      width: 40px; /* Adjust the width as per your preference */
+      width: 15vw;
     }
 
     .confetti-container {
@@ -69,8 +59,8 @@
     }
 
     .confetti {
-      width: 10px;
-      height: 10px;
+      width: 1vw;
+      height: 1vw;
       background-color: transparent;
       position: absolute;
       border-radius: 50%;
@@ -86,18 +76,8 @@
       }
     }
   </style>
-  <title>Countdown</title>
-  <script>
-    // JavaScript to detect if the user is on a mobile device
-    function isMobileDevice() {
-      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    }
-
-    // Redirect to another site if the user is on a mobile device
-    if (isMobileDevice()) {
-      window.location.href = "https://fytg.fun/mobileupdate";
-    }
-  </script>
+  <title>Next PS99 Update Countdown!</title>
+  <meta name="description" content="Made out of boredom by fytage">
 </head>
 <body>
 
@@ -109,7 +89,7 @@
   <img src="https://raw.githubusercontent.com/dortik98/website/main/images/signature-white.png" alt="Signature">
 </a>
 
-<a id="discordButton" href="https://raw.githubusercontent.com/dortik98/website/main/images/discordupd.png" target="_blank">
+<a id="discordButton" href="https://discord.gg/pet-simulator-news-1146582505693138954" target="_blank">
   <img src="https://raw.githubusercontent.com/dortik98/website/main/images/discordupd.png" alt="Discord">
 </a>
 
