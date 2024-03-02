@@ -1,160 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&amp;display=swap">
-  <style>
-    body {
-      font-family: 'Fredoka', sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background: url('https://raw.githubusercontent.com/dortik98/website/main/images/gg.jpg') center/cover fixed;
-      color: white;
-    }
-
-    #title, #countdown, #milliseconds {
-      font-size: 8vw; /* Adjust according to your preference */
-      text-align: center;
-    }
-
-    #button, #discordButton {
-      position: fixed;
-      opacity: 0.7;
-      cursor: pointer;
-    }
-
-    #button {
-      top: 10px;
-      right: 10px;
-    }
-
-    #discordButton {
-      top: 10px;
-      left: 10px;
-    }
-
-    #button img {
-      width: 20vw;
-    }
-
-    #discordButton img {
-      width: 15vw;
-    }
-
-    .confetti-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 9999;
-      display: none; /* Initially hide confetti */
-    }
-
-    .confetti {
-      width: 1vw;
-      height: 1vw;
-      background-color: transparent;
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-      transform-origin: 50% 50%;
-      will-change: transform;
-      animation: confetti-fall linear infinite;
-    }
-
-    @keyframes confetti-fall {
-      to {
-        transform: translateY(100vh);
-      }
-    }
-  </style>
-  <title>Next PS99 Update Countdown!</title>
-  <meta name="description" content="Made out of boredom by fytage">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Count Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+    </style>
 </head>
 <body>
 
-<div id="title">Next PS99 Update!</div>
-<div id="countdown"></div>
-<div id="milliseconds"></div>
+    <h1>Pet Count Tracker</h1>
 
-<a id="button" href="https://fytg.fun/" target="_blank">
-  <img src="https://raw.githubusercontent.com/dortik98/website/main/images/signature-white.png" alt="Signature">
-</a>
+    <div id="petCount"></div>
 
-<a id="discordButton" href="https://discord.gg/pet-simulator-news-1146582505693138954" target="_blank">
-  <img src="https://raw.githubusercontent.com/dortik98/website/main/images/discordupd.png" alt="Discord">
-</a>
+    <script>
+        async function fetchPetCount() {
+            try {
+                const response = await fetch('https://cors-anywhere.herokuapp.com/https://www.biggames.io/api/pets?page=15');
+                const data = await response.json();
 
-<div class="confetti-container">
-  <!-- Confetti elements will be dynamically added here -->
-</div>
+                console.log('API Data:', data); // Log the entire data for debugging
 
-<script>
-  const countDownDate = new Date("February 24, 2024 18:00:00 GMT+0100").getTime();
-  let confettiInitialized = false;
+                const pets = data.data;
+                const hugeHappyComputer = pets.find(pet => pet.configName === 'Huge Happy Computer');
 
-  const x = setInterval(function() {
-    const now = new Date().getTime();
+                console.log('Huge Happy Computer Details:', hugeHappyComputer); // Log details for debugging
 
-    const distance = countDownDate - now;
+                document.getElementById('petCount').innerText = `Huge Happy Computer Exist Count: ${hugeHappyComputer.exist}`;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('petCount').innerText = 'Error fetching data';
+            }
+        }
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    const milliseconds = Math.floor(distance % 1000);
-
-    document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    document.getElementById("milliseconds").innerHTML = `${milliseconds}ms`;
-
-    if (distance < 0 && !confettiInitialized) {
-      clearInterval(x);
-      const countdownElement = document.getElementById("countdown");
-      countdownElement.innerHTML = "Update Out!";
-      countdownElement.style.color = "#8eff8e"; // Light green color
-      countdownElement.style.cursor = "pointer"; // Make it clickable
-      countdownElement.addEventListener("click", function() {
-        window.location.href = "https://www.roblox.com/games/8737899170/";
-      });
-      document.getElementById("milliseconds").style.display = "none"; // Hide milliseconds
-      document.querySelector('.confetti-container').style.display = 'block'; // Show confetti
-      initializeConfetti(); // Initialize confetti only once
-      confettiInitialized = true;
-    }
-  }, 1); // Update every 1 millisecond
-
-  function initializeConfetti() {
-    const colors = ['#9142ff', '#2aff54', '#ffde37', '#ff3737', '#4385ff'];
-    const confettiContainer = document.querySelector('.confetti-container');
-
-    function createConfetti(animationDelay) {
-      const confetti = document.createElement('div');
-      confetti.classList.add('confetti');
-      confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-      confetti.style.left = Math.random() * 100 + 'vw';
-      confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
-      confetti.style.animationDelay = animationDelay ? 0 : Math.random() * 2 + 's';
-      confettiContainer.appendChild(confetti);
-
-      confetti.addEventListener('animationiteration', () => {
-        confetti.remove();
-      });
-    }
-
-    for (let i = 0; i < 100; i++) {
-      createConfetti(0);
-    }
-    setInterval(createConfetti, 20);
-  }
-</script>
+        // Fetch the pet count when the page loads
+        fetchPetCount();
+    </script>
 
 </body>
 </html>
