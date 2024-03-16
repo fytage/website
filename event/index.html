@@ -99,8 +99,8 @@
     function updateCountdown() {
        const now = convertToGMT0100(new Date()); // Convert current time to Prague time
         const target = new Date(now);
-        target.setHours(19, 0, 0, 0); // Set the target time to 7 PM Prague time
-        const nextOccurrences = [23, 03, 07, 11, 15, 19]; // Define the hours for the next occurrences
+        target.setHours(19, 0, 0, 0); // Set the target time to 7 PM Prague 
+        const nextOccurrences = [3, 7, 11, 15, 19, 23];
         let nextOccurrenceIndex = 0;
         for (let i = 0; i < nextOccurrences.length; i++) {
             if (now.getHours() < nextOccurrences[i]) {
