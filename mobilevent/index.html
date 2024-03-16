@@ -1,6 +1,138 @@
-<html>
-  <head>
-    <title>not done</title>
-  </head>
-  <h1>Not done</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&amp;display=swap">
+  <style>
+    body {
+      font-family: 'Fredoka', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: url('https://fytg.fun/images/omg.png') center/cover fixed;
+      color: white;
+    }
+
+    #title {
+      font-size: 10vw; /* Adjust font size for smaller screens */
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    #countdown {
+      text-align: center;
+      font-size: 9vw; /* Adjust font size for smaller screens */
+      cursor: pointer; /* Make the countdown clickable */
+    }
+
+    #milliseconds {
+      font-size: 3vw; /* Adjust font size for smaller screens */
+    }
+
+    #button, #discordButton {
+      position: fixed;
+      opacity: 0.7;
+      cursor: pointer;
+    }
+
+    #button {
+      top: 10px;
+      right: 10px;
+    }
+
+    #discordButton {
+      top: 10px;
+      left: 10px;
+    }
+
+    #button img {
+      width: 15vw; /* Adjust button size for smaller screens */
+    }
+
+    #discordButton img {
+      width: 10vw; /* Adjust button size for smaller screens */
+    }
+
+    h1 {
+      color: lightgreen;
+      font-size: 4vw; /* Adjust font size for smaller screens */
+      text-align: center;
+    }   
+
+    a {
+      text-decoration: none; /* Remove default underline */
+    }
+
+    a:hover {
+      text-decoration: underline;
+      text-decoration-color: lightgreen; /* Set the underline color on hover */
+    }
+
+    @keyframes pulse {
+      0% { font-size: 25px; color: yellow; }
+      50% { font-size: 30px; color: lime; }
+      100% { font-size: 25px; color: yellow; }
+    }
+
+    @keyframes glow {
+      0% { text-shadow: 0 0 10px yellow; }
+      50% { text-shadow: 0 0 20px lime; }
+      100% { text-shadow: 0 0 10px yellow; }
+    }
+  </style>
+  <link rel="shortcut icon" href="https://raw.githubusercontent.com/dortik98/website/main/images/faviconupdate.png">
+  <title>Next PS99 St. Patricks Event Countdown!</title>
+  <meta name="description" content="Made out of boredom by fytage">
+  <script>
+    function updateCountdown() {
+      const now = new Date();
+      const target = new Date(now);
+      target.setHours(20, 0, 0, 0); // Set target time to 6 PM in GMT+0100 timezone
+      if (now >= target) target.setHours(target.getHours() + Math.floor((now - target) / (1000 * 60 * 60 * 4)) * 4 + 4); // Calculate next occurrence after 6 PM
+      const distance = target - now;
+      const hours = Math.floor(distance / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      const milliseconds = Math.floor(distance % 1000);
+      document.getElementById("countdown").innerHTML = `${hours}h ${minutes}m ${seconds}s`;
+      document.getElementById("milliseconds").innerHTML = `${milliseconds}ms`;
+
+      // Display event message for 1 hour after the timer resets
+      if (hours === 3 && minutes < 60) {
+        document.getElementById("eventMessage").style.display = "block";
+      } else {
+        document.getElementById("eventMessage").style.display = "none";
+      }
+    }
+
+    setInterval(updateCountdown, 10); // Update every 10 milliseconds for better accuracy
+  </script>
+</head>
+<body>
+
+<a href="https://discord.com/oauth2/authorize?client_id=1216682145058263050&permissions=274878295040&scope=bot">
+  <h1>Invite my Pet Simulator bot to your Discord Server!</h1>
+</a>
+
+<div id="title">Next St. Patricks Event</div>
+<div id="countdown"></div>
+<div id="milliseconds"></div>
+
+<a id="button" href="https://fytg.fun/" target="_blank">
+  <img src="https://raw.githubusercontent.com/dortik98/website/main/images/signature-white.png" alt="Signature">
+</a>
+
+<a id="discordButton" href="https://discord.gg/pet-simulator-news-1146582505693138954" target="_blank">
+  <img src="https://raw.githubusercontent.com/dortik98/website/main/images/discordupd.png" alt="Discord">
+</a>
+<br>
+<div id="eventMessage" style="display: none; color: yellow; font-size: 3.5vw; text-align: center;">
+  <span style="font-size: 2.5vw; color: lightgreen; animation: pulse 2.5s infinite, glow 2.5s infinite;">An event is already going on! Go to World 1 and start on the path behind the eggs!</span>
+</div>
+
+</body>
 </html>
