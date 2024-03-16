@@ -97,10 +97,10 @@
   </script>
 <script>
     function updateCountdown() {
-        const now = convertToGMT0100(new Date()); // Convert current time to Prague time
+       const now = convertToGMT0100(new Date()); // Convert current time to Prague time
         const target = new Date(now);
         target.setHours(19, 0, 0, 0); // Set the target time to 7 PM Prague time
-        const nextOccurrences = [23, 3, 7, 11, 15, 19]; // Define the hours for the next occurrences
+        const nextOccurrences = [23, 03, 07, 11, 15, 19]; // Define the hours for the next occurrences
         let nextOccurrenceIndex = 0;
         for (let i = 0; i < nextOccurrences.length; i++) {
             if (now.getHours() < nextOccurrences[i]) {
@@ -111,7 +111,7 @@
         target.setHours(nextOccurrences[nextOccurrenceIndex]);
         if (now >= target) {
             nextOccurrenceIndex = (nextOccurrenceIndex + 1) % nextOccurrences.length; // Move to the next occurrence
-            target.setDate(target.getDate() + 0); // Move to the next day
+            target.setDate(target.getDate() + 1); // Move to the next day
             target.setHours(nextOccurrences[nextOccurrenceIndex]);
         }
         const distance = target - now;
