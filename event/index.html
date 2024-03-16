@@ -111,7 +111,7 @@
         target.setHours(nextOccurrences[nextOccurrenceIndex]);
         if (now >= target) {
             nextOccurrenceIndex = (nextOccurrenceIndex + 1) % nextOccurrences.length; // Move to the next occurrence
-            target.setDate(target.getDate() + 1); // Move to the next day
+            target.setDate(target.getDate() + 0); // Move to the next day
             target.setHours(nextOccurrences[nextOccurrenceIndex]);
         }
         const distance = target - now;
