@@ -25,7 +25,7 @@
     #countdown {
       text-align: center;
       font-size: 100px;
-      cursor: pointer; /* Make the countdown clickable */
+      cursor: pointer;
     }
 
     #milliseconds {
@@ -90,7 +90,7 @@
   <h1>Invite my Pet Simulator bot to your Discord Server!</h1>
 </a>
 	
-<div id="title">Next PS99 Update!</div>
+<div id="title">Next St. Patricks Event</div>
 <div id="countdown"></div>
 <div id="milliseconds"></div>
 
@@ -105,7 +105,7 @@
 <script>
   // Set the start time for the countdown (6 PM on March 16, 2024, Europe/Prague time)
   const countDownStartTime = new Date("March 16, 2024 18:00:00 GMT+0100").getTime();
-  const countdownDuration = 4 * 60 * 60 * 1000; // 4 hours in milliseconds
+  const countdownDuration = 4 * 60 * 60 * 1000;
   let countdownInterval;
 
   function updateCountdown() {
@@ -140,7 +140,6 @@
     }, 5 * 60 * 1000);
   }
 
-  // Start the countdown
   updateCountdown();
 </script>
 
