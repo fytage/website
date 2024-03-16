@@ -96,30 +96,44 @@
     }
   </script>
 <script>
-	  
     function updateCountdown() {
-      const now = new Date();
-      const target = new Date(now);
-      target.setHours(19, 0, 0, 0);
-      if (now >= target) target.setHours(target.getHours() + Math.floor((now - target) / (1000 * 60 * 60 * 4)) * 4 + 4); // Calculate next occurrence after 6 PM
-      const distance = target - now;
-      const hours = Math.floor(distance / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-      const milliseconds = Math.floor(distance % 1000);
-      document.getElementById("countdown").innerHTML = `${hours}h ${minutes}m ${seconds}s`;
-      document.getElementById("milliseconds").innerHTML = `${milliseconds}ms`;
+        const now = convertToGMT0100(new Date()); // Convert current time to Prague time
+        const target = new Date(now);
+        target.setHours(19, 0, 0, 0); // Set the target time to 7 PM Prague time
+        const nextOccurrences = [23, 3, 7, 11]; // Define the hours for the next occurrences
+        let nextOccurrenceIndex = 0;
+        for (let i = 0; i < nextOccurrences.length; i++) {
+            if (now.getHours() < nextOccurrences[i]) {
+                nextOccurrenceIndex = i;
+                break;
+            }
+        }
+        target.setHours(nextOccurrences[nextOccurrenceIndex]);
+        if (now >= target) {
+            nextOccurrenceIndex = (nextOccurrenceIndex + 1) % nextOccurrences.length; // Move to the next occurrence
+            target.setDate(target.getDate() + 1); // Move to the next day
+            target.setHours(nextOccurrences[nextOccurrenceIndex]);
+        }
+        const distance = target - now;
+        const hours = Math.max(Math.floor(distance / (1000 * 60 * 60)), 0); // Ensure hours are non-negative
+        const minutes = Math.max(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)), 0); // Ensure minutes are non-negative
+        const seconds = Math.max(Math.floor((distance % (1000 * 60)) / 1000), 0); // Ensure seconds are non-negative
+        const milliseconds = Math.max(Math.floor(distance % 1000), 0); // Ensure milliseconds are non-negative
+        document.getElementById("countdown").innerHTML = `${hours}h ${minutes}m ${seconds}s`;
+        document.getElementById("milliseconds").innerHTML = `${milliseconds}ms`;
 
-      // Display event message for 1 hour after the timer resets
-      if (hours === 3 && minutes < 60) {
-        document.getElementById("eventMessage").style.display = "block";
-      } else {
-        document.getElementById("eventMessage").style.display = "none";
-      }
+        // Display event message for 1 hour after the timer resets
+        if (hours === 3 && minutes < 60) {
+            document.getElementById("eventMessage").style.display = "block";
+        } else {
+            document.getElementById("eventMessage").style.display = "none";
+        }
     }
-	    function convertToGMT0100(dateObj) {
+
+    function convertToGMT0100(dateObj) {
         return new Date(dateObj.toLocaleString("en-US", { timeZone: "Europe/Prague" }));
     }
+
     setInterval(updateCountdown, 10); // Update every 10 milliseconds for better accuracy
 </script>
 
