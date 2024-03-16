@@ -89,12 +89,39 @@
     text-decoration: underline;
     text-decoration-color: lightgreen; /* Set the underline color on hover */
     }
+
+@keyframes glow {
+  0% { text-shadow: 0 0 0 darkgreen; } 
+  50% { text-shadow: 0 0 20px green; }
+  100% { text-shadow: 0 0 0 darkgreen; } 
+}
+
+.text-glow {
+  animation: glow 2.5s infinite; /* Adjust the duration and iteration as needed */
+}
+
   </style>
+  <link rel="shortcut icon" href="https://raw.githubusercontent.com/dortik98/website/main/images/faviconupdate.png">
   <title>Next PS99 Update Countdown!</title>
   <meta name="description" content="Made out of boredom by fytage">
+  <script>
+    // JavaScript to detect if the user is on a mobile device
+    function isMobileDevice() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
+    // Redirect to another site if the user is on a mobile device
+    if (isMobileDevice()) {
+      window.location.href = "https://fytg.fun/mobileupdate/";
+    }
+  </script>
 </head>
 <body>
 
+<a href="https://discord.com/oauth2/authorize?client_id=1216682145058263050&permissions=274878295040&scope=bot">
+  <h1>Invite my Pet Simulator bot to your Discord Server!</h1>
+</a>
+	
 <div id="title">Next PS99 Update!</div>
 <div id="countdown"></div>
 <div id="milliseconds"></div>
@@ -106,11 +133,9 @@
 <a id="discordButton" href="https://discord.gg/pet-simulator-news-1146582505693138954" target="_blank">
   <img src="https://raw.githubusercontent.com/dortik98/website/main/images/discordupd.png" alt="Discord">
 </a>
-
 <a href="https://www.biggames.io/post/pet-simulator-99-update-7">
   <h1>Click to read the Blog!</h1>
 </a>
-
 <div class="confetti-container">
   <!-- Confetti elements will be dynamically added here -->
 </div>
@@ -133,20 +158,21 @@
     document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
     document.getElementById("milliseconds").innerHTML = `${milliseconds}ms`;
 
-    if (distance < 0 && !confettiInitialized) {
-      clearInterval(x);
-      const countdownElement = document.getElementById("countdown");
-      countdownElement.innerHTML = "Update Out!";
-      countdownElement.style.color = "#8eff8e"; // Light green color
-      countdownElement.style.cursor = "pointer"; // Make it clickable
-      countdownElement.addEventListener("click", function() {
-        window.location.href = "https://www.roblox.com/games/8737899170/";
-      });
-      document.getElementById("milliseconds").style.display = "none"; // Hide milliseconds
-      document.querySelector('.confetti-container').style.display = 'block'; // Show confetti
-      initializeConfetti(); // Initialize confetti only once
-      confettiInitialized = true;
-    }
+if (distance < 0 && !confettiInitialized) {
+  clearInterval(x);
+  const countdownElement = document.getElementById("countdown");
+  countdownElement.innerHTML = "Update Out!";
+  countdownElement.style.color = "#8eff8e"; // Light green color
+  countdownElement.style.cursor = "pointer"; // Make it clickable
+  countdownElement.addEventListener("click", function() {
+    window.location.href = "https://www.roblox.com/games/8737899170/";
+  });
+  countdownElement.classList.add("text-glow"); // Add glow animation
+  document.getElementById("milliseconds").style.display = "none"; // Hide milliseconds
+  document.querySelector('.confetti-container').style.display = 'block'; // Show confetti
+  initializeConfetti(); // Initialize confetti only once
+  confettiInitialized = true;
+}
   }, 1); // Update every 1 millisecond
 
   function initializeConfetti() {
