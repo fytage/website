@@ -86,7 +86,7 @@
   </style>
   <link rel="shortcut icon" href="https://raw.githubusercontent.com/dortik98/website/main/images/faviconupdate.png">
   <title>Next PS99 St. Patricks Event Countdown!</title>
-  <meta name="description" content="Made out of boredom by fytage">
+  <meta name="description" content="Mobile Version: Made out of boredom by fytage">
  <script>
 const timeUntilNextEvent = () => {
   const time = new Date();
@@ -95,7 +95,7 @@ const timeUntilNextEvent = () => {
   );
 
   const nextTime = new Date(currentTime);
-  nextTime.setHours(nextTime.getHours() + 4 - (nextTime.getHours() % 3));
+  nextTime.setHours(nextTime.getHours() + 7 - (nextTime.getHours() % 4));
   nextTime.setMinutes(0);
   nextTime.setSeconds(0);
   nextTime.setMilliseconds(0);
