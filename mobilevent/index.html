@@ -83,6 +83,17 @@
       50% { text-shadow: 0 0 20px lime; }
       100% { text-shadow: 0 0 10px yellow; }
     }
+    	  	@keyframes pulsee {
+  0% { font-size: 90px; color: yellow; }
+  50% { font-size: 100px; color: red; }
+  100% { font-size: 90px; color: yellow; }
+    }
+	
+	@keyframes gloww {
+  0% { text-shadow: 1px 1px 90px yellow; }
+  50% { text-shadow: 1px 1px 100px red; }
+  100% { text-shadow: 1px 1px 90px yellow; }
+}
   </style>
   <link rel="shortcut icon" href="https://raw.githubusercontent.com/dortik98/website/main/images/faviconupdate.png">
   <title>Next PS99 St. Patricks Event Countdown!</title>
@@ -133,8 +144,11 @@ setInterval(setData, 5);
 </a>
 
 <div id="title">Next St. Patricks Event</div>
-<div id="countdown"></div>
-  <div id="milliseconds"></div>
+<div id="AlotOfBugs" style="display: block; color: yellow; font-size: 100px;">
+  <span style="font-size: 95px; color: red; animation: pulsee 3s infinite, gloww 3s infinite;">Countdown Paused</span>
+</div>
+<br>
+  <h1>I’m sorry, but the Countdown has been temporarily paused due to numerous bugs! It will come back soon!</h1>
 
 <a id="button" href="https://fytg.fun/" target="_blank">
   <img src="https://raw.githubusercontent.com/dortik98/website/main/images/signature-white.png" alt="Signature">
