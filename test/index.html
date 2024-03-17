@@ -86,11 +86,13 @@
   <meta name="description" content="Made out of boredom by fytage">
 <script>
 const timeUntilNextEvent = () => {
-  const currentTime = new Date();
+  const time = new Date();
+  const currentTime = new Date(
+    time.getTime() + time.getTimezoneOffset() * 60 * 1000
+  );
 
   const nextTime = new Date(currentTime);
-
-  nextTime.setHours(nextTime.getHours() + 4 - (nextTime.getHours() % 2));
+  nextTime.setHours(nextTime.getHours() + 2 - (nextTime.getHours() % 2));
   nextTime.setMinutes(0);
   nextTime.setSeconds(0);
   nextTime.setMilliseconds(0);
