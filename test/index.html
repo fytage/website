@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<!-- saved from url=(0022)https://fytg.fun/test/ -->
-<html lang="en"><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&amp;display=swa">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&amp;display=swap">
   <style>
     body {
       font-family: 'Fredoka', sans-serif;
@@ -84,67 +84,78 @@
   <link rel="shortcut icon" href="https://raw.githubusercontent.com/dortik98/website/main/images/faviconupdate.png">
   <title>Next PS99 St. Patricks Event Countdown!</title>
   <meta name="description" content="Made out of boredom by fytage">
+  <script>
+    // JavaScript to detect if the user is on a mobile device
+    function isMobileDevice() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
+    // Redirect to another site if the user is on a mobile device
+    if (isMobileDevice()) {
+      window.location.href = "https://fytg.fun/mobilevent/";
+    }
+  </script>
 <script>
-const timeUntilNextEvent = () => {
-  const time = new Date();
-  const currentTime = new Date(
-    time.getTime() + time.getTimezoneOffset() * 60 * 1000
-  );
+    function updateCountdown() {
+        const now = convertToGMT0100(new Date()); // Convert current time to Prague time
+        const target = new Date(now);
+        target.setHours(20, 0, 0, 0); // Set the target time to 7 PM Prague time
+        const nextOccurrences = [4, 8, 12, 16, 20, 24];
+        let nextOccurrenceIndex = 0;
+        for (let i = 0; i < nextOccurrences.length; i++) {
+            if (now.getHours() < nextOccurrences[i]) {
+                nextOccurrenceIndex = i;
+                break;
+            }
+        }
+        target.setHours(nextOccurrences[nextOccurrenceIndex]);
+        if (now >= target) {
+            nextOccurrenceIndex = (nextOccurrenceIndex + 1) % nextOccurrences.length; // Move to the next occurrence
+            target.setDate(target.getDate() + 1); // Move to the next day
+            target.setHours(nextOccurrences[nextOccurrenceIndex]);
+        }
+        const distance = target - now;
+        const hours = Math.max(Math.floor(distance / (1000 * 60 * 60)), 0); // Ensure hours are non-negative
+        const minutes = Math.max(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)), 0); // Ensure minutes are non-negative
+        const seconds = Math.max(Math.floor((distance % (1000 * 60)) / 1000), 0); // Ensure seconds are non-negative
+        document.getElementById("countdown").innerHTML = `${hours}h ${minutes}m ${seconds}s`;
 
-  const nextTime = new Date(currentTime);
-  nextTime.setHours(nextTime.getHours() + 4 - (nextTime.getHours() % 3));
-  nextTime.setMinutes(0);
-  nextTime.setSeconds(0);
-  nextTime.setMilliseconds(0);
+        // Display event message for 1 hour after the timer resets
+        if (hours === 3 && minutes < 60) {
+            document.getElementById("eventMessage").style.display = "block";
+        } else {
+            document.getElementById("eventMessage").style.display = "none";
+        }
+    }
 
-  return nextTime - currentTime;
-};
+    function convertToGMT0100(dateObj) {
+        return new Date(dateObj.toLocaleString("en-US", { timeZone: "Europe/Prague" }));
+    }
 
-const setData = () => {
-  const distance = timeUntilNextEvent();
-
-  const hours = Math.floor(distance / (1000 * 60 * 60));
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  const milliseconds = Math.floor(distance % 1000);
-
-  document.getElementById(
-    "countdown"
-  ).innerHTML = `${hours}h ${minutes}m ${seconds}s`;
-  document.getElementById("milliseconds").innerHTML = `${milliseconds}ms`;
-
-  if (hours == 3 && minutes < 60) {
-    return (document.getElementById("eventMessage").style.display = "block");
-  }
-
-  document.getElementById("eventMessage").style.display = "none";
-};
-
-setInterval(setData, 5);
+    setInterval(updateCountdown, 10); // Update every 10 milliseconds for better accuracy
 </script>
+
 </head>
 <body>
 
-<a href="https://discord.com/oauth2/authorize?client_id=1216682145058263050&amp;permissions=274878295040&amp;scope=bot">
+<a href="https://discord.com/oauth2/authorize?client_id=1216682145058263050&permissions=274878295040&scope=bot">
   <h1>Invite my Pet Simulator bot to your Discord Server!</h1>
 </a>
 
 <div id="title">Next St. Patricks Event</div>
-<div id="countdown">0h 36m 35s</div>
-<div id="milliseconds">582ms</div>
-
-<a id="button" href="https://fytg.fun/" target="_blank">
-  <img src="https://fytg.fun/images/signature-white.png" alt="Signature">
-</a>
-
-<a id="discordButton" href="https://discord.gg/pet-simulator-news-1146582505693138954" target="_blank">
-  <img src="https://fytg.fun/images/discordupd.png" alt="Discord">
-</a>
+<div id="countdown"></div>
 <br>
 <div id="eventMessage" style="display: none; color: yellow; font-size: 30px;">
   <span style="font-size: 25px; color: lightgreen; animation: pulse 2.5s infinite, glow 2.5s infinite;">An event is already going on! Go to World 1 and start on the path behind the eggs!</span>
 </div>
 
+<a id="button" href="https://fytg.fun/" target="_blank">
+  <img src="https://raw.githubusercontent.com/dortik98/website/main/images/signature-white.png" alt="Signature">
+</a>
 
+<a id="discordButton" href="https://discord.gg/pet-simulator-news-1146582505693138954" target="_blank">
+  <img src="https://raw.githubusercontent.com/dortik98/website/main/images/discordupd.png" alt="Discord">
+</a>
 
-</body></html>
+</body>
+</html>
