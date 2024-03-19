@@ -98,43 +98,44 @@
   <link rel="shortcut icon" href="https://raw.githubusercontent.com/dortik98/website/main/images/faviconupdate.png">
   <title>Next PS99 St. Patricks Event Countdown!</title>
   <meta name="description" content="Mobile Version: Made out of boredom by fytage">
- <script>
-const timeUntilNextEvent = () => {
-  const time = new Date();
-  const currentTime = new Date(
-    time.getTime() + time.getTimezoneOffset() * 60 * 1000
-  );
+<script>
+    function updateCountdown() {
+        const now = convertToGMT0100(new Date()); // Convert current time to Prague time
+        const target = new Date(now);
+        target.setHours(20, 0, 0, 0); // Set the target time to 7 PM Prague time
+        const nextOccurrences = [4, 8, 12, 16, 20, 24];
+        let nextOccurrenceIndex = 0;
+        for (let i = 0; i < nextOccurrences.length; i++) {
+            if (now.getHours() < nextOccurrences[i]) {
+                nextOccurrenceIndex = i;
+                break;
+            }
+        }
+        target.setHours(nextOccurrences[nextOccurrenceIndex]);
+        if (now >= target) {
+            nextOccurrenceIndex = (nextOccurrenceIndex + 1) % nextOccurrences.length; // Move to the next occurrence
+            target.setDate(target.getDate() + 1); // Move to the next day
+            target.setHours(nextOccurrences[nextOccurrenceIndex]);
+        }
+        const distance = target - now;
+        const hours = Math.max(Math.floor(distance / (1000 * 60 * 60)), 0); // Ensure hours are non-negative
+        const minutes = Math.max(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)), 0); // Ensure minutes are non-negative
+        const seconds = Math.max(Math.floor((distance % (1000 * 60)) / 1000), 0); // Ensure seconds are non-negative
+        document.getElementById("countdown").innerHTML = `${hours}h ${minutes}m ${seconds}s`;
 
-  const nextTime = new Date(currentTime);
-  nextTime.setHours(nextTime.getHours() + 7 - (nextTime.getHours() % 4));
-  nextTime.setMinutes(0);
-  nextTime.setSeconds(0);
-  nextTime.setMilliseconds(0);
+        // Display event message for 1 hour after the timer resets
+        if (hours === 3 && minutes < 60) {
+            document.getElementById("eventMessage").style.display = "block";
+        } else {
+            document.getElementById("eventMessage").style.display = "none";
+        }
+    }
 
-  return nextTime - currentTime;
-};
+    function convertToGMT0100(dateObj) {
+        return new Date(dateObj.toLocaleString("en-US", { timeZone: "Europe/Prague" }));
+    }
 
-const setData = () => {
-  const distance = timeUntilNextEvent();
-
-  const hours = Math.floor(distance / (1000 * 60 * 60));
-  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-  const milliseconds = Math.floor(distance % 1000);
-
-  document.getElementById(
-    "countdown"
-  ).innerHTML = `${hours}h ${minutes}m ${seconds}s`;
-  document.getElementById("milliseconds").innerHTML = `${milliseconds}ms`;
-
-  if (hours == 3 && minutes < 60) {
-    return (document.getElementById("eventMessage").style.display = "block");
-  }
-
-  document.getElementById("eventMessage").style.display = "none";
-};
-
-setInterval(setData, 5);
+    setInterval(updateCountdown, 10); // Update every 10 milliseconds for better accuracy
 </script>
 </head>
 <body>
@@ -144,11 +145,11 @@ setInterval(setData, 5);
 </a>
 
 <div id="title">Next St. Patricks Event</div>
-<div id="AlotOfBugs" style="display: block; color: yellow; font-size: 100px;">
-  <span style="font-size: 95px; color: red; animation: pulsee 3s infinite, gloww 3s infinite;">Countdown Paused</span>
-</div>
+<div id="countdown"></div>
 <br>
-<center>I’m sorry, but the Countdown has been temporarily paused due to numerous bugs, as I want my site to be as reliable as possible, I have paused the timer for a moment until I fix the current issues. It will come back soon!</center>
+<div id="eventMessage" style="display: none; color: yellow; font-size: 30px;">
+  <span style="font-size: 25px; color: lightgreen; animation: pulse 2.5s infinite, glow 2.5s infinite;">An event is already going on! Go to World 1 and start on the path behind the eggs!</span>
+</div>
 
 <a id="button" href="https://fytg.fun/" target="_blank">
   <img src="https://raw.githubusercontent.com/dortik98/website/main/images/signature-white.png" alt="Signature">
@@ -157,10 +158,6 @@ setInterval(setData, 5);
 <a id="discordButton" href="https://discord.gg/pet-simulator-news-1146582505693138954" target="_blank">
   <img src="https://raw.githubusercontent.com/dortik98/website/main/images/discordupd.png" alt="Discord">
 </a>
-<br>
-<div id="eventMessage" style="display: none; color: yellow; font-size: 3.5vw; text-align: center;">
-  <span style="font-size: 2.5vw; color: lightgreen; animation: pulse 2.5s infinite, glow 2.5s infinite;">An event is already going on! Go to World 1 and start on the path behind the eggs!</span>
-</div>
 
 </body>
 </html>
