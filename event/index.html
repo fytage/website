@@ -80,6 +80,18 @@
   50% { text-shadow: 0 0 20px lime; }
   100% { text-shadow: 0 0 10px yellow; }
 }
+	  	@keyframes pulsee {
+  0% { font-size: 25px; color: yellow; }
+  50% { font-size: 25px; color: rgba(255, 0, 0, 0.8); }
+  100% { font-size: 25px; color: yellow; }
+    }
+	
+	@keyframes gloww {
+  0% { text-shadow: 0 0 10px yellow; }
+  50% { text-shadow: 0 0 10px rgba(255, 0, 0, 0.8); }
+  100% { text-shadow: 0 0 10px yellow; }
+}
+	
   </style>
   <link rel="shortcut icon" href="https://raw.githubusercontent.com/dortik98/website/main/images/faviconupdate.png">
   <title>Next PS99 St. Patricks Event Countdown!</title>
@@ -143,11 +155,10 @@
 </a>
 
 <div id="title">Next St. Patricks Event</div>
-<div id="countdown"></div>
-<br>
-<div id="eventMessage" style="display: none; color: yellow; font-size: 30px;">
-  <span style="font-size: 25px; color: lightgreen; animation: pulse 2.5s infinite, glow 2.5s infinite;">An event is already going on! Go to World 1 and start on the path behind the eggs!</span>
-</div>
+  <span style="font-size: 25px; color: red; animation: pulsee 5s infinite, gloww 5s infinite;">This website has been paused as the countdown got broken by daylight savings. Be back soon!</span>
+<a href="https://fytg.fun/update/">
+ <h1>In the meanwhile, you can check my update countdown site! (Click here)</h1>
+</a>
 
 <a id="button" href="https://fytg.fun/" target="_blank">
   <img src="https://raw.githubusercontent.com/dortik98/website/main/images/signature-white.png" alt="Signature">
