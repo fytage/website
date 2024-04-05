@@ -101,6 +101,103 @@
   animation: glow 2.5s infinite; /* Adjust the duration and iteration as needed */
 }
 
+.popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      animation: fadeIn 0.5s forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    .popup-content {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #333333;
+  padding: 20px;
+  text-align: center;
+  width: 90%;
+  max-width: 800px;
+  height: 90%;
+  max-height: 600px;
+  border-radius: 10px; /* Adjust the value as needed */
+  height: 700px; /* Set a desired height for the content */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.popup-content h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.popup-content p {
+  font-size: 16px;
+  line-height: 1.5; /* Adjust line spacing for better readability */
+}
+
+.popup-content img {
+  width: 400px; /* Adjust width as needed */
+  display: block; /* Display the image on a new line */
+  margin: 10px auto; /* Center the image horizontally */
+}
+.popup-content::-webkit-scrollbar {
+  width: 10px; /* Adjust width as needed */
+  background-color: #333333; /* Light gray background */
+}
+
+.popup-content::-webkit-scrollbar-thumb {
+  background-color: #aaa; /* Gray thumb color */
+  border-radius: 10px; /* Rounded corners */
+}
+
+
+.close-popup-button {
+  top: 10px;
+  right: 10px;
+  color: white;
+  cursor: pointer;
+  opacity: 0;
+  animation: fadeInButton 0.5s forwards;
+  position: fixed; /* Change position to absolute */
+}
+@keyframes fadeInButton {
+  from {
+    opacity: 0;
+    transform: scale(0) translate(calc(100% - 10px), 10px);  /* Adjusted origin */
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translate(calc(100% - 10px), 10px);
+  }
+}
+
+    .popup-button {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      opacity: 0.5;
+      cursor: pointer;
+}
+
+.popup-button img {
+      width: 40px;
+    } 
+
   </style>
   <link rel="shortcut icon" href="https://raw.githubusercontent.com/dortik98/website/main/images/faviconupdate.png">
   <title>Next PS99 Update Countdown!</title>
@@ -116,19 +213,68 @@
 <div id="countdown"></div>
 <div id="milliseconds"></div>
 
+<a class="popup-button">
+  <img src="https://raw.githubusercontent.com/fytage/website/main/images/scroll.png" alt="Popup Button">
+</a>
+
 <a id="button" href="https://fytg.fun/" target="_blank">
   <img src="https://raw.githubusercontent.com/dortik98/website/main/images/signature-white.png" alt="Signature">
 </a>
 
-<a id="discordButton" href="https://discord.gg/pet-simulator-news-1146582505693138954" target="_blank">
-  <img src="https://raw.githubusercontent.com/dortik98/website/main/images/discordupd.png" alt="Discord">
-</a>
 <br>
 <a href="https://www.biggames.io/post/pet-simulator-99-update-7">
   <h1>Click to read the Previous Update Blog!</h1>
 </a>
 <div class="confetti-container">
   <!-- Confetti elements will be dynamically added here -->
+</div>
+
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-content">
+    <span style="text-align: center; font-size: 40px; color: lightgreen; animation: glow 3s infinite;">Upcoming Update Features</span>
+    <br>
+    <h2>🌊 Tsunami Ultimate!</h2>
+    <p>Flood the area with HUGE waves!</p>
+    <img src="https://fytg.fun/images/tsunamiultimate.gif" alt="Tsunami">
+    <br>
+    <h2>✨ Supercharge enchants with essence!</h2>
+    <p>Essence is from broken down enchants 💥</p>
+    <img src="https://pbs.twimg.com/media/GJduQx3WoAAgCmm?format=jpg" alt="Essence">
+    <br>
+    <h2>🔥 Hype Eggs are Coming Back!</h2>
+    <p>You get one for every rank you have!</p>
+    <img src="https://pbs.twimg.com/media/GJyNGW-WQAAtoHf?format=jpg" alt="HypeEggsGui">
+    <br>
+    <h2>✨ Treasure Hideout! 💎</h2>
+    <p>- Always better than your last area <br>
+      - Tons of item & diamond drops <br>
+      - Chance for HUGE PET <br>
+      
+      Use a Hideout Key to get in for 30 min!</p>
+    <img src="https://pbs.twimg.com/media/GJ0BWW0WoAAbxxm?format=jpg" alt="TreasureHideout">
+    <br>
+    <h2>🧪 XP Potions Machine!</h2>
+    <p>Very expensive, but worth it to quickly level up! 🔥</p>
+    <img src="https://pbs.twimg.com/media/GJ5vcKgWgAACC3Y?format=jpg" alt="XpPotions">
+    <br>
+    <h2>24 New Areas!</h2>
+    <p>Ending with Dominus!</p>
+    <img src="https://pbs.twimg.com/media/GJ-jelpWMAA_Kuj?format=jpg" alt="DominusArea">
+    <img src="https://pbs.twimg.com/media/GJ-je1BWMAAlotT?format=jpg" alt="UnknownArea">
+    <img src="https://pbs.twimg.com/media/GJ-jfG4XQAAVO-0?format=jpg" alt="UnknownArea">
+    <img src="https://pbs.twimg.com/media/GJ-jfkBX0AAh9n9?format=jpg" alt="UnknownArea">
+    <br>
+    <h2>🛠️ FORGE items together!</h2>
+    <img src="https://pbs.twimg.com/media/GKOXqluXYAActdh?format=jpg" alt="ForgeMachine">
+    <br>
+    <h2>😺 Sneak peek of the new pets!</h2>
+    <img src="https://pbs.twimg.com/media/GKS4JmDXoAAmBTw?format=jpg" alt="NewPets">
+    <br>
+    <h2>💸 FREE EXCLUSIVE EGGS!🥚</h2>
+    <p>Find and break this giant egg! Happens randomly!</p>
+    <img src="https://pbs.twimg.com/media/GKYqq90WYAESrQo?format=jpg" alt="FreeExcEggs">
+    <div class="close-popup-button" id="close-popup-button" onclick="closePopup()" style="position: absolute; top: 10px; right: 10px; cursor: pointer; color: white;">X</div>  
+  </div>
 </div>
 
 <script>
@@ -189,6 +335,18 @@ if (distance < 0 && !confettiInitialized) {
     }
     setInterval(createConfetti, 20);
   }
+      // Popup Script
+      const popupButton = document.querySelector(".popup-button");
+  const popupOverlay = document.getElementById("popupOverlay");
+
+  popupButton.addEventListener("click", function() {
+    popupOverlay.style.display = "block";
+  });
+
+  function closePopup() {
+    var popupOverlay = document.getElementById('popupOverlay');
+    popupOverlay.style.display = 'none';
+}
 </script>
 
 </body>
