@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@605&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://petsimupdate.com/styles/other/pc.css">
+  <title>Wiktor Countdown</title>
+</head>
+<body>
+  
+<div id="countdown"></div>
+<div class="js-container" id="confetti-holder"></div>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+	
+<script>
+  const countDownDate = new Date("July 14, 2025 00:00:00 GMT+0100").getTime();
+  let confettiInitialized = false;
+  
+  const x = setInterval(function() {
+    const now = new Date().getTime();
+    const distance = countDownDate - now;
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    const milliseconds = Math.floor(distance % 1000);
+  
+    let countdownText = '';
+    if (days > 0) countdownText += `${days}d `;
+    if (hours > 0 || days > 0) countdownText += `${hours}h `;
+    if (minutes > 0 || hours > 0 || days > 0) countdownText += `${minutes}m `;
+    countdownText += `${seconds}s`;
+  
+    document.getElementById("countdown").innerHTML = countdownText.trim();
+    document.getElementById("milliseconds").innerHTML = `${milliseconds}ms`;
+  
+    if (distance <= 0 && !confettiInitialized) {
+      clearInterval(x);
+      const countdownElement = document.getElementById("countdown");
+      countdownElement.innerHTML = "Now Out!";
+      countdownElement.style.color = "#8eff8e";
+      countdownElement.style.cursor = "pointer";
+      countdownElement.addEventListener("click", function() {
+        window.location.href = "https://www.roblox.com/share?code=ff7b3b5c20ef664aac9984b41d00b934&type=ExperienceAffiliate";
+      });
+      countdownElement.classList.add("text-glow");
+      document.getElementById("milliseconds").style.display = "none";
+  
+      // Show bursts of confetti
+      confettiBurst();
+  
+      confettiInitialized = true;
+      document.querySelector(".js-container").style.display = "block";
+      window.confettiful = new Confettiful(document.querySelector('.js-container'));
+  
+      // Set flag in localStorage to indicate countdown has ended
+      localStorage.setItem('countdownEnded', 'true');
+    }
+  }, 10);
+  
+  // Confetti bursts function
+  function confettiBurst() {
+    // Center burst with more particles to avoid gaps
+    confetti({
+      particleCount: 200,
+      spread: 70,
+      origin: { x: 0.5, y: 0.5 }
+    });
+  
+    // Top left to bottom right burst, adjust origin slightly inward
+    confetti({
+      particleCount: 100,
+      angle: 45,
+      spread: 60,
+      startVelocity: 40,
+      origin: { x: 0.1, y: 0.1 }
+    });
+  
+    // Top right to bottom left burst, adjust origin slightly inward
+    confetti({
+      particleCount: 100,
+      angle: 135,
+      spread: 60,
+      startVelocity: 50,
+      origin: { x: 0.9, y: 0.1 }
+    });
+  }
+  
+  
+  
+  
+  // Confetti class, unchanged
+  const Confettiful = function (el) {
+    this.el = el;
+    this.containerEl = null;
+  
+    this.confettiFrequency = 25;
+    this.confettiColors = ['#fce18a', '#ff726d', '#b48def', '#f4306d'];
+    this.confettiAnimations = ['slow', 'medium', 'fast'];
+  
+    this._setupElements();
+    this._renderConfetti();
+  };
+  
+  Confettiful.prototype._setupElements = function () {
+    const containerEl = document.createElement('div');
+    containerEl.classList.add('confetti-container');
+  
+    this.el.appendChild(containerEl);
+    this.containerEl = containerEl;
+  };
+  
+  Confettiful.prototype._renderConfetti = function () {
+    this.confettiInterval = setInterval(() => {
+      const confettiEl = document.createElement('div');
+      const confettiSize = Math.floor(Math.random() * 3) + 7 + 'px';
+      const confettiBackground = this.confettiColors[Math.floor(Math.random() * this.confettiColors.length)];
+      const confettiLeft = Math.floor(Math.random() * this.el.offsetWidth) + 'px';
+      const confettiAnimation = this.confettiAnimations[Math.floor(Math.random() * this.confettiAnimations.length)];
+  
+      confettiEl.classList.add('confetti', 'confetti--animation-' + confettiAnimation);
+      confettiEl.style.left = confettiLeft;
+      confettiEl.style.width = confettiSize;
+      confettiEl.style.height = confettiSize;
+      confettiEl.style.backgroundColor = confettiBackground;
+      confettiEl.style.zIndex = "1001"; // Ensure it's on top
+  
+      confettiEl.removeTimeout = setTimeout(function () {
+        confettiEl.parentNode.removeChild(confettiEl);
+      }, 3000);
+  
+      this.containerEl.appendChild(confettiEl);
+    }, 25);
+  };
+  
+    </script>
+
+</body>
+</html>
